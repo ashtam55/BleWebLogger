@@ -127,7 +127,7 @@ function handleCharacteristicValueChanged(event) {
   // log(value);
   pageScroll();  
   if (value.match(lastValue) == false){
-    log('New Data:');
+    // log('New Data:');
     receive(value);
     data = value;
     // for (let c of value) {
