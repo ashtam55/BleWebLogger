@@ -57,6 +57,8 @@ function sendStatus(switch_id,switch_state){
   // .then(service => service.getCharacteristic(characteristicUuid))
   // .then(characteristic => characteristic.writeValue(toSend));
   log(toSend.type);
+
+  // write(toSend,false);
   send(toSend);
 }
 
@@ -131,14 +133,14 @@ function connectDeviceAndCacheCharacteristic(device) {
       then(characteristic => {
         log('Characteristic found');
         characteristicCache = characteristic;
-
+        
         return characteristicCache;
       });
 }
 
 function startNotifications(characteristic) {
   log('Starting notifications...');
-
+    logs('Connected');
   // return characteristic.startNotifications().
   //     then(() => {
   //       log('Notifications started');
@@ -148,8 +150,8 @@ function startNotifications(characteristic) {
 
       return deviceCache.gatt.getPrimaryService(serviceUuid)
       .then(service => service.getCharacteristic(characteristicRX))
-      .then(characteristic => characteristic.startNotifications())
-      .then(characteristic => characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged));
+      .then(characteristicRX => characteristicRX.startNotifications())
+      .then(characteristicRX => characteristicRX.addEventListener('characteristicvaluechanged', handleCharacteristicValueChanged));
 }
 //Autoscroll
 function pageScroll() {
@@ -191,10 +193,13 @@ function receive(data) {
 }
 
 function log(data, type = '') {
+  // terminalContainer.insertAdjacentHTML('beforeend',
+  //     '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
+}
+function logs(data, type = '') {
   terminalContainer.insertAdjacentHTML('beforeend',
       '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
 }
-
 function disconnect() {
   if (deviceCache) {
     log('Disconnecting from "' + deviceCache.name + '" bluetooth device...');
@@ -248,5 +253,32 @@ function send(data) {
 }
 
 function writeToCharacteristic(characteristic, data) {
-  characteristic.writeValue(new TextEncoder().encode(data));
+  let encoder = new TextEncoder('utf-8');
+  characteristic.writeValue(encoder.encode(data));
+}
+ function write (data, string = true) {
+	p = new Promise(function (resolve, reject) {
+		// See if the device is paired.
+		if (pairedDevices) {
+			// Has a write reference been discovered.
+			if (characteristicUuid != null) {
+				// Don't double encode.
+				if (string) {
+					let encoder = new TextEncoder('utf-8');
+					characteristicUuid.writeValue(encoder.encode(data));
+				} else {
+					dataInUint8 = Uint8Array.from(data);
+					characteristicUuid.writeValue(dataInUint8);
+				}
+				resolve();
+
+			} else {
+				reject("No write characteristic")
+			}
+		} else {
+			reject("No devices paired.")
+		}
+	}).catch(error => {
+	});
+	return p;
 }

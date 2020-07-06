@@ -12,7 +12,8 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-
+    <h1 align='center' font-family='poppins'>Abacus Smart Control</h1>
+<div align='center'>
 <form id="send-form">
         <!-- <input id="input" type="text"> -->
         <input id="service" type="text" list="services" autofocus placeholder="Bluetooth Service" value="4fafc201-1fb5-459e-8fcc-c5c9c331914b" >
@@ -21,20 +22,36 @@
     
         <button type="submit">Send</button>
 </form>
+</div>
+<div align="center">
+<button id="connect" type="button" align='center'>Connect</button>
 
-<button id="connect" type="button">Connect</button>
+<button id="disconnect" type="button" align='center'>Disconnect</button>
+</div>
+<div id="terminal" align='center'></div>
 
-<button id="disconnect" type="button">Disconnect</button>
-
-<div id="terminal"></div>
-
-<div>
+<div align='center'>
     <h4>Switch One</h4>
     <button id = "sw1_on" >On</button>
     <button id = "sw1_off" >Off</button>
 </div>
 
-
+<div align='center'>
+        <h4>Switch Two</h4>
+        <button id = "sw1_on" >On</button>
+        <button id = "sw1_off" >Off</button>
+    </div>
+    <div align='center'>
+            <h4>Switch Three</h4>
+            <button id = "sw1_on" >On</button>
+            <button id = "sw1_off" >Off</button>
+        </div>
+        <div align='center'>
+                <h4>Switch Four</h4>
+                <button id = "sw1_on" >On</button>
+                <button id = "sw1_off" >Off</button>
+            </div>
+                        
 
 
 <script src="main.js"></script>
