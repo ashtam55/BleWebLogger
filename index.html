@@ -11,8 +11,41 @@
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
 </head>
-<body>
-    <h1 align='center' font-family='poppins'>Abacus Smart Control</h1>
+<style>
+    .button {
+      display: block;
+      width: 20%;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .button1 {
+      display: block;
+      width: 10%;
+      border: none;
+      background-color: rgb(66, 100, 212);
+      color: white;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .header {
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 15px;
+}
+    </style>
+<body style="background-color:powderblue;">
+    <div class="header">    <h1 align='center' font-family='poppins'>Abacus Smart Control</h1>
+    </div>
 <div align='center'>
 <form id="send-form">
         <!-- <input id="input" type="text"> -->
@@ -20,22 +53,23 @@
         <input id="characteristic" type="text" list="characteristics" placeholder="Bluetooth Characteristic" value="beb5483e-36e1-4688-b7f5-ea07361b26a8">
             <!-- <button id="stopNotifications">Stop notifications</button> -->
     
-        <button type="submit">Send</button>
+        <!-- <button type="submit">Send</button> -->
 </form>
 </div>
 <div align="center">
-<button id="connect" type="button" align='center'>Connect</button>
+<button id="connect" type="button" align='center' class="button1">Connect</button><br>
 
-<button id="disconnect" type="button" align='center'>Disconnect</button>
+<button id="disconnect" type="button" align='center' class="button1">Disconnect</button>
 </div>
 <div id="terminal" align='center'></div>
 
 <div align='center'>
-    <h4>Switch One</h4>
-    <button id = "sw1_on" >On</button>
-    <button id = "sw1_off" >Off</button>
+    <h4>Motor Control</h4>
+    <button id = "sw1_on" class="button" >On</button><br>
+    <button id = "sw1_off" class="button" >Off</button>
 </div>
 
+<!-- 
 <div align='center'>
         <h4>Switch Two</h4>
         <button id = "sw1_on" >On</button>
@@ -51,7 +85,7 @@
                 <button id = "sw1_on" >On</button>
                 <button id = "sw1_off" >Off</button>
             </div>
-                        
+                         -->
 
 
 <script src="main.js"></script>

@@ -20,11 +20,14 @@ disconnectButton.addEventListener('click', function() {
 });
 
 button1on.addEventListener('click',function(){
-  sendStatus(3,1);
+  sendStatus(303429489,2,1);console.log("Relay ON 2");
+  setTimeout(() => {   sendStatus(303429489,2,0);console.log("Relay OFF 2"); }, 1000);
+
 });
 
 button1off.addEventListener('click',function(){
-  sendStatus(3,0);
+  sendStatus(303429489,3,1);console.log("Relay ON 3");
+  setTimeout(() => {   sendStatus(303429489,3,0);console.log("Relay OFF 3"); }, 1000);
 });
 
 
@@ -44,9 +47,13 @@ sendForm.addEventListener('submit', function(event) {
 
 
 
-function sendStatus(switch_id,switch_state){
+function sendStatus(DID,switch_id,switch_state){
   log("device name "+deviceName);
-  var deviceId = String(deviceName).substring(String(deviceName).indexOf("-")+1);
+  // var deviceId = String(deviceName).substring(String(deviceName).indexOf("-")+1);
+  // var deviceId = "303429489"; 2883020137 3289302245
+  var deviceId = DID;
+
+  console.log('Device ID : '+ deviceId);
   log('Device ID : '+ deviceId);
   toSend = "xxxxx/"+deviceId+"/"+switch_id+"/"+switch_state;
   // var toSend = "wifi/clear";
@@ -60,6 +67,7 @@ function sendStatus(switch_id,switch_state){
 
   // write(toSend,false);
   send(toSend);
+
 }
 
 let deviceCache = null;
@@ -72,7 +80,7 @@ function connect() {
   return (deviceCache ? Promise.resolve(deviceCache) :
       requestBluetoothDevice()).
       then(device => connectDeviceAndCacheCharacteristic(device)).
-      then(characteristic => startNotifications(characteristicRX)).
+      then(characteristicRX => startNotifications(characteristicRX)).
       // then(characteristic => {
       //   // Writing 1 is the signal to reset energy expended.
       //   return characteristic.writeValue(toSend);
@@ -105,7 +113,7 @@ function handleDisconnection(event) {
       '" bluetooth device disconnected, trying to reconnect...');
 
   connectDeviceAndCacheCharacteristic(device).
-      then(characteristic => startNotifications(characteristic)).
+      then(characteristicRX => startNotifications(characteristicRX)).
       catch(error => log(error));
 }
 
@@ -139,8 +147,9 @@ function connectDeviceAndCacheCharacteristic(device) {
 }
 
 function startNotifications(characteristic) {
-  log('Starting notifications...');
-    logs('Connected');
+  console.log('Starting notifications...');
+  console.log('Connected');
+  log1('Connected');
   // return characteristic.startNotifications().
   //     then(() => {
   //       log('Notifications started');
@@ -158,12 +167,29 @@ function pageScroll() {
   window.scrollBy(0,500);
   scrolldelay = setTimeout(pageScroll,5000);
 }
+function changeBodyBg(color){
+  document.getElementById('sw1_on').style.backgroundColor = color;
+  document.getElementById('sw1_off').style.backgroundColor = color;
 
+}
+
+function changeBodyBgInactive(color){
+  document.getElementById('sw1_on').style.backgroundColor = color;
+  document.getElementById('sw1_off').style.backgroundColor = color;
+}
 
 function handleCharacteristicValueChanged(event) {
   let value = new TextDecoder().decode(event.target.value);
-  // log(value);
-  pageScroll();  
+  console.log(value);
+  pageScroll();
+  if(!value.match('inactive')){
+    console.log("ACK from Device");
+    changeBodyBg('green');
+  }
+  else{
+    console.log("Not ACK from Device");
+    changeBodyBgInactive('red');
+  }  
   if (value.match(lastValue) == false){
     // log('New Data:');
     receive(value);
@@ -192,6 +218,10 @@ function receive(data) {
   log(data, 'in');
 }
 
+function log1(data, type = '') {
+  terminalContainer.insertAdjacentHTML('beforeend',
+      '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
+}
 function log(data, type = '') {
   // terminalContainer.insertAdjacentHTML('beforeend',
   //     '<div' + (type ? ' class="' + type + '"' : '') + '>' + data + '</div>');
