@@ -184,11 +184,11 @@ function handleCharacteristicValueChanged(event) {
   pageScroll();
   if(!value.match('inactive')){
     console.log("ACK from Device");
-    changeBodyBg('green');
+    changeBodyBg('#7FB00');
   }
   else{
     console.log("Not ACK from Device");
-    changeBodyBgInactive('red');
+    changeBodyBgInactive('#F6511D');
   }  
   if (value.match(lastValue) == false){
     // log('New Data:');

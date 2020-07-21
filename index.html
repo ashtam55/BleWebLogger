@@ -16,16 +16,17 @@
       display: block;
       width: 20%;
       border: none;
-      background-color: #4CAF50;
+      background-color: #7FB800;
       color: white;
       padding: 14px 28px;
       font-size: 16px;
       cursor: pointer;
       text-align: center;
+      display:inline-block;
     }
     .button1 {
       display: block;
-      width: 25%;
+      width: 35%;
       border: none;
       background-color: rgb(66, 100, 212);
       color: white;
@@ -33,17 +34,27 @@
       font-size: 16px;
       cursor: pointer;
       text-align: center;
+      display:inline-block;
     }
     .header {
   padding: 10px;
   margin: 10px;
   text-align: center;
-  background: #1abc9c;
+  background: #5E00A5;
   color: white;
   font-size: 15px;
 }
+.header1{
+    padding: 10px;
+  margin: 10px;
+  text-align: center;
+  background: #ffb400;
+  color: white;
+  font-size: 15px;
+    width: 20%;
+}
     </style>
-<body style="background-color:powderblue;">
+<body style="background-color:#343a40;">
     <div class="header">    <h1 align='center' font-family='poppins'>Abacus Smart Control</h1>
     </div>
 <div align='center'>
@@ -57,15 +68,15 @@
 </form>
 </div>
 <div align="center">
-<button id="connect" type="button" align='center' class="button1">Connect</button><br>
+<button id="connect" type="button" align='center' class="button1">Connect</button>
 
 <button id="disconnect" type="button" align='center' class="button1">Disconnect</button>
 </div>
 <div id="terminal" align='center'></div>
 
 <div align='center'>
-    <h4>Motor Control</h4>
-    <button id = "sw1_on" class="button" >On</button><br>
+        <h4 class="header1">Motor Control</h4>
+    <button id = "sw1_on" class="button" >On</button>
     <button id = "sw1_off" class="button" >Off</button>
 </div>
 
